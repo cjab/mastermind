@@ -1,8 +1,13 @@
 require.config({
   paths: {
-    jQuery:     "lib/jquery/jquery",
-    Underscore: "lib/underscore/underscore",
-    Backbone:   "lib/backbone/backbone"
+    jQuery:       "lib/jquery/jquery",
+    Underscore:   "lib/underscore/underscore",
+    Backbone:     "lib/backbone/backbone",
+    CoffeeScript: "lib/coffeescript/coffeescript",
+    cs:           "lib/require/cs",
+    text:         "lib/require/text",
+    order:        "lib/require/order",
+    templates:    "../templates"
   }
 });
 
