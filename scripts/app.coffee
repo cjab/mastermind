@@ -3,14 +3,13 @@ define [
   "Underscore",
   "Backbone",
   "cs!router",
-  "cs!views/code_peg"
+  "cs!views/board"
 ],
 
-($, _, Backbone, Router, CodePegView) ->
+($, _, Backbone, Router, Board) ->
 
   initialize = ->
-    codePegView = new CodePegView
-    codePegView.initialize()
     Router.initialize()
+    board = new Board el: $('.container')
 
   return initialize: initialize
