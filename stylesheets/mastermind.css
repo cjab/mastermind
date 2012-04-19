@@ -1,1 +1,10 @@
 .board { background-color: #333; }
+
+.key { width: 30px; height: 30px; background-color: gray; float: left; margin-left: 15px; }
+.key-row { width: 30px; height: 15px; }
+.key-peg { width: 15px; height: 15px; float: left; }
+.correct-placement { background-color: red; }
+.correct-color { background-color: white; }
+
+.code-peg:hover { border: 2px solid #ccc }
+.code-peg-selection { float: left; }

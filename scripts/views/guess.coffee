@@ -19,6 +19,8 @@ define [
       @childViews = [
         new CodePegSelectView
         new CodePegSelectView
+        new CodePegSelectView
+        new CodePegSelectView
       ]
       @render()
 
