@@ -9,18 +9,15 @@ define [
 ($, _, Backbone, CodePeg, codePegTemplate) ->
 
   class CodePegView extends Backbone.View
-    el: $("#content")
-    codePeg: null
+
+    template: _.template(codePegTemplate)
+
 
     initialize: ->
-      console.log "Initializing CodePegView..."
-      @codePeg = new CodePeg
+      @model = new CodePeg unless @model?
       @render()
 
-    render: ->
-      data =
-        buttonClass: @codePeg.get("class")
-      template = _.template(codePegTemplate, data)
-      $(@el).html(template)
 
-  return CodePegView
+    render: ->
+      data = type: @model.get("type")
+      @$el.html @template(data)

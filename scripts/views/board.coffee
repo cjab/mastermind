@@ -49,4 +49,4 @@ define [
     render: ->
       data = {}
       @$el.html @template(data)
-      console.log @$el.find('.guesses').html(@renderChildren())
+      @$el.find('.guesses').html(@renderChildren())

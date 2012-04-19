@@ -12,8 +12,6 @@ define [
 
     initialize = ->
       @guesses = new Guesses
-      alert "Initializing a Board..."
-      console.log @guesses
 
 
   return Board
