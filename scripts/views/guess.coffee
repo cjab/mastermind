@@ -3,15 +3,18 @@ define [
   "Underscore",
   "Backbone",
   "cs!models/guess",
+  "cs!collections/code_pegs",
   "cs!views/code_peg_select",
   "text!templates/guess.html"
 ],
 
-($, _, Backbone, Guess, CodePegSelectView, guessTemplate) ->
+($, _, Backbone, Guess, CodePegs, CodePegSelectView, guessTemplate) ->
 
   class GuessView extends Backbone.View
 
     template: _.template(guessTemplate)
+    events:
+      "click .submit-guess": "onDone"
 
 
     initialize: ->
@@ -26,6 +29,13 @@ define [
 
 
     renderChildren: -> $(view.el for own id, view of @childViews)
+
+
+    onDone: =>
+      codePegs = new CodePegs (view.codePegs.selected for view in @childViews)
+      @model.set("codePegs", codePegs)
+      @model.get("codePegs").each (peg) ->
+        console.log peg.get("type")
 
 
     render: ->
