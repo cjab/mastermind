@@ -10,5 +10,8 @@ define [
 
     model: CodePeg
 
-    initialize = ->
-      alert "Initializing a CodePegs collection..."
+
+    onSelect: (selected) => @selected = selected
+
+
+    initialize: -> @on "select", @onSelect

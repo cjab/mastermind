@@ -14,7 +14,6 @@ define [
 
     childViews: {}
     template: _.template(boardTemplate)
-    events: "click": "click"
 
     initialize: ->
       @guesses = new Guesses
@@ -28,9 +27,6 @@ define [
       ]
 
       @render()
-
-
-    click: -> console.log "Implement Me!"
 
 
     addGuess: (guess) =>

@@ -11,6 +11,8 @@ define [
   class CodePegView extends Backbone.View
 
     template: _.template(codePegTemplate)
+    events:
+      "click": "onClick"
 
 
     initialize: ->
@@ -18,6 +20,10 @@ define [
       @render()
 
 
+    onClick: (e) => @model.trigger("select", @model)
+
+
     render: ->
       data = type: @model.get("type")
       @$el.html @template(data)
+      @delegateEvents()

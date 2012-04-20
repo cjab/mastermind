@@ -14,13 +14,17 @@ define [
 
     template: _.template(codePegSelectTemplate)
 
+    events:
+      "select": "onSelect"
+
 
     initialize: ->
       @childViews = {}
 
       @codePegs = new CodePegs
-      @codePegs.bind "add", @addCodePeg
-      @codePegs.bind "remove", @removeCodePeg
+      @codePegs.on "add",    @onAddCodePeg
+      @codePegs.on "remove", @onRemoveCodePeg
+      @codePegs.on "select", @onSelect
 
       @codePegs.add [
         new CodePeg type: "btn-primary"
@@ -34,20 +38,30 @@ define [
       @render()
 
 
-    addCodePeg: (codePeg) =>
+    onAddCodePeg: (codePeg) =>
       view = new CodePegView model: codePeg
       @childViews[codePeg.cid] = view
 
 
-    removeCodePeg: (codePeg) =>
+    onRemoveCodePeg: (codePeg) =>
       @childViews[codePeg.cid].remove()
       delete @childViews[codePeg.cid]
 
 
-    renderChildren: -> $(view.el for own id, view of @childViews)
+    onSelect: (codePeg) => @render()
+
+
+    renderChildren: ->
+      # Events have to be re-attached to the child views
+      view.delegateEvents() for own id, view of @childViews
+      $(view.el for own id, view of @childViews)
 
 
     render: ->
-      data = id : 1, type: "btn-inverse"
+      data =
+        id:   @codePegs.selected?.get("cid")
+        type: @codePegs.selected?.get("type")
+
       @$el.html @template(data)
       @$el.find('.dropdown-menu').html(@renderChildren())
+      @delegateEvents()
