@@ -2,39 +2,38 @@ define [
   "jQuery",
   "Underscore",
   "Backbone",
+  "cs!models/board",
   "cs!collections/guesses",
   "cs!views/guess",
   "cs!models/guess",
   "text!templates/board.html"
 ],
 
-($, _, Backbone, Guesses, GuessView, Guess, boardTemplate) ->
+($, _, Backbone, Board, Guesses, GuessView, Guess, boardTemplate) ->
 
   class BoardView extends Backbone.View
 
-    childViews: {}
     template: _.template(boardTemplate)
 
     initialize: ->
-      @guesses = new Guesses
-      @guesses.bind "add", @addGuess
-      @guesses.bind "remove", @removeGuess
+      @childViews = {}
+      @model = new Board
 
-      @guesses.add [
-        new Guess
-        new Guess
-        new Guess
-      ]
+      guesses = @model.get("guesses")
+      guesses.bind "add",    @onAddGuess
+      guesses.bind "remove", @onRemoveGuess
+
+      guesses.add new Guess
 
       @render()
 
 
-    addGuess: (guess) =>
+    onAddGuess: (guess) =>
       view = new GuessView model: guess
       @childViews[guess.cid] = view
 
 
-    removeGuess: (guess) =>
+    onRemoveGuess: (guess) =>
       @childViews[guess.cid].remove()
       delete @childViews[guess.cid]
 

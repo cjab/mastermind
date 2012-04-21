@@ -18,7 +18,7 @@ define [
 
 
     initialize: ->
-      @model = new Guess
+      @model = new Guess unless @model?
       @childViews = [
         new CodePegSelectView
         new CodePegSelectView
@@ -32,13 +32,14 @@ define [
 
 
     onDone: =>
-      codePegs = new CodePegs (view.codePegs.selected for view in @childViews)
-      @model.set("codePegs", codePegs)
-      @model.get("codePegs").each (peg) ->
-        console.log peg.get("type")
+      codePegs = (view.codePegs.selected for view in @childViews)
+      if _.all codePegs, _.identity
+        @model.set("codePegs", new CodePegs codePegs)
+      else
+        alert "You cannot submit an incomplete code"
 
 
     render: ->
       data = id : @model.cid
       @$el.html @template(data)
-      @$el.find('.code-selection').html(@renderChildren())
+      @$el.find('.code-selection').html @renderChildren()

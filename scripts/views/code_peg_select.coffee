@@ -23,14 +23,7 @@ define [
       @codePegs.on "remove", @onRemoveCodePeg
       @codePegs.on "select", @onSelect
 
-      @codePegs.add [
-        new CodePeg type: "btn-primary"
-        new CodePeg type: "btn-info"
-        new CodePeg type: "btn-success"
-        new CodePeg type: "btn-warning"
-        new CodePeg type: "btn-danger"
-        new CodePeg type: "btn-inverse"
-      ]
+      @codePegs.add (new CodePeg type: t for t in CodePeg.types)
 
       @render()
 

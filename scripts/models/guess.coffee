@@ -1,16 +1,12 @@
 define [
   "Underscore",
-  "Backbone"
+  "Backbone",
+  "cs!collections/code_pegs"
 ],
 
-(_, Backbone) ->
+(_, Backbone, CodePegs) ->
 
   class Guess extends Backbone.Model
 
-    defaults: {}
-
-    initialize = ->
-      alert "Initializing a Guess..."
-
-
-  return Guess
+    initialize: ->
+      @set("codePegs", new CodePegs)

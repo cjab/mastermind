@@ -7,5 +7,11 @@ define [
 
   class CodePeg extends Backbone.Model
 
-    defaults:
-      type: "btn-inverse"
+    @types: [
+      "btn-primary"
+      "btn-info"
+      "btn-success"
+      "btn-warning"
+      "btn-danger"
+      "btn-inverse"
+    ]
