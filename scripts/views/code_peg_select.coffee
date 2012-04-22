@@ -48,6 +48,12 @@ define [
       $(view.el for own id, view of @childViews)
 
 
+    disable: ->
+      @$el.find(".btn").attr "data-toggle", ""
+      @$el.find(".btn").prop "disabled"
+      @$el.find(".caret").removeClass("caret")
+
+
     render: ->
       data =
         id:   @codePegs.selected?.get("cid")

@@ -20,7 +20,11 @@ define [
       @render()
 
 
-    onClick: (e) => @model.trigger("select", @model)
+    onClick: => @model.trigger("select", @model)
+
+
+    disable: ->
+      @$el.off "click"
 
 
     render: ->

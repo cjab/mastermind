@@ -31,10 +31,13 @@ define [
     onAddGuess: (guess) =>
       view = new GuessView model: guess
       @childViews[guess.cid] = view
+      @$el.find(".guesses").append(view.el)
 
 
     onRemoveGuess: (guess) =>
-      @childViews[guess.cid].remove()
+      view = @childViews[guess.cid]
+      @$el.find(".guesses").remove(view.el)
+      view.remove()
       delete @childViews[guess.cid]
 
 
@@ -44,4 +47,4 @@ define [
     render: ->
       data = {}
       @$el.html @template(data)
-      @$el.find('.guesses').html(@renderChildren())
+      @$el.find(".guesses").html(@renderChildren())

@@ -37,13 +37,15 @@ define [
 
 
     onScoreChange: (guess) =>
-      @$el.find(".score").html @scoreView.render()
+      @$el.find(".score").html(@scoreView.render()).show()
 
 
     onDone: =>
       codePegs = (view.codePegs.selected for view in @childViews)
       if _.all codePegs, _.identity
         @model.set("codePegs", new CodePegs codePegs)
+        view.disable() for view in @childViews
+        @$el.find(".submit-guess").remove()
       else
         alert "You cannot submit an incomplete code"
 

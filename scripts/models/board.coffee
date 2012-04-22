@@ -5,14 +5,16 @@ define [
   "cs!models/code_peg",
   "cs!collections/code_pegs"
   "cs!models/score"
+  "cs!models/guess",
 ],
 
-(_, Backbone, Guesses, CodePeg, CodePegs, Score) ->
+(_, Backbone, Guesses, CodePeg, CodePegs, Score, Guess) ->
 
   class Board extends Backbone.Model
 
     defaults:
-      codeLength: 4
+      maxGuesses: 12
+      codeLength:  4
       allowDuplicates: yes
 
 
@@ -25,6 +27,10 @@ define [
 
     onMakeGuess: (guess) =>
       @scoreGuess(guess)
+      if guess.get("score").get("correct") == @get("codeLength")
+        console.log "You've won!"
+      else
+        @get("guesses").add new Guess
 
 
     scoreGuess: (guess) =>
