@@ -1,12 +1,16 @@
-.board { background-color: #333; }
+body { background-color: #555 }
 
-.score { width: 30px; height: 30px; background-color: gray;
+.score { width: 30px; height: 28px; background-color: gray;
          float: left; margin-left: 15px; border-radius: 4px; }
-.score-row { width: 30px; height: 15px; }
-.score-peg { width: 15px; height: 15px; float: left; border-radius: 4px; }
-.correct { background-color: red; }
-.correct-type { background-color: white; }
+.score-row { width: 30px; height: 14px; }
+.score-peg { width: 15px; height: 14px; float: left; border-radius: 4px; }
+.correct { background-color: #da4f49; }
+.correct-type { background-color: whiteSmoke; }
 
 .code-peg:hover { border: 2px solid #ccc }
 .code-peg-selection { float: left; min-width: 30px; min-height: 30px }
 .code-peg-selection button { min-width: 30px; min-height: 28px }
+
+.submit-guess { margin-left: 12px }
+.guess { margin-top: 5px; }
+.guesses { width: 180px; margin: 0 auto; }
