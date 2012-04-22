@@ -5,10 +5,11 @@ define [
   "cs!models/guess",
   "cs!collections/code_pegs",
   "cs!views/code_peg_select",
+  "cs!views/score",
   "text!templates/guess.html"
 ],
 
-($, _, Backbone, Guess, CodePegs, CodePegSelectView, guessTemplate) ->
+($, _, Backbone, Guess, CodePegs, CodePegSelectView, ScoreView, guessTemplate) ->
 
   class GuessView extends Backbone.View
 
@@ -19,6 +20,10 @@ define [
 
     initialize: ->
       @model = new Guess unless @model?
+
+      @model.get("score").on "change", @onScoreChange
+
+      @scoreView  = new ScoreView model: @model.get("score")
       @childViews = [
         new CodePegSelectView
         new CodePegSelectView
@@ -29,6 +34,10 @@ define [
 
 
     renderChildren: -> $(view.el for own id, view of @childViews)
+
+
+    onScoreChange: (guess) =>
+      @$el.find(".score").html @scoreView.render()
 
 
     onDone: =>
@@ -42,4 +51,4 @@ define [
     render: ->
       data = id : @model.cid
       @$el.html @template(data)
-      @$el.find('.code-selection').html @renderChildren()
+      @$el.find(".code-selection").html @renderChildren()

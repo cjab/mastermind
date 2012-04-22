@@ -4,9 +4,10 @@ define [
   "cs!collections/guesses",
   "cs!models/code_peg",
   "cs!collections/code_pegs"
+  "cs!models/score"
 ],
 
-(_, Backbone, Guesses, CodePeg, CodePegs) ->
+(_, Backbone, Guesses, CodePeg, CodePegs, Score) ->
 
   class Board extends Backbone.Model
 
@@ -19,15 +20,19 @@ define [
       @set "answer",  @randomCode()
       @set "guesses", new Guesses
 
-      @get("guesses").on "change", @onMakeGuess
+      @get("guesses").on "change:codePegs", @onMakeGuess
 
 
     onMakeGuess: (guess) =>
-      console.log "Board Model, Comparing Guess"
-      correctType  = @get("answer").numberOfCorrectType guess.get("codePegs")
-      correctOrder = @get("answer").numberInOrder guess.get("codePegs")
-      console.log "TYPE:",  correctType - correctOrder
-      console.log "ORDER:", correctOrder
+      @scoreGuess(guess)
+
+
+    scoreGuess: (guess) =>
+      correct     = @get("answer").numberInOrder guess.get("codePegs")
+      correctType = @get("answer").numberOfCorrectType guess.get("codePegs")
+      guess.get("score").set
+        correct: correct
+        correctType: correctType - correct
 
 
     randomCode: ->
