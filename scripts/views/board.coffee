@@ -6,26 +6,48 @@ define [
   "cs!collections/guesses",
   "cs!views/guess",
   "cs!models/guess",
+  "cs!views/score_board",
   "text!templates/board.html"
 ],
 
-($, _, Backbone, Board, Guesses, GuessView, Guess, boardTemplate) ->
+($, _, Backbone, Board, Guesses, GuessView, Guess, ScoreBoard, boardTemplate) ->
 
   class BoardView extends Backbone.View
 
     template: _.template(boardTemplate)
 
+    events:
+      "click .play-again": "onPlayAgain"
+
     initialize: ->
-      @childViews = {}
       @model = new Board
+
+      @childViews = {}
+      @scoreBoardView = new ScoreBoard model: @model
 
       guesses = @model.get("guesses")
       guesses.bind "add",    @onAddGuess
       guesses.bind "remove", @onRemoveGuess
+      guesses.bind "reset",  @onResetGuesses
+      @model.bind "change:wins",   @onWin
+      @model.bind "change:losses", @onLoss
 
       guesses.add new Guess
 
       @render()
+
+
+    onWin: =>
+      @$el.find(".play-again").show()
+
+
+    onLoss: =>
+      @$el.find(".play-again").show()
+
+
+    onPlayAgain: =>
+      @$el.find(".play-again").hide()
+      @model.newCode()
 
 
     onAddGuess: (guess) =>
@@ -41,10 +63,18 @@ define [
       delete @childViews[guess.cid]
 
 
-    renderChildren: -> $(view.el for own id, view of @childViews)
+    onResetGuesses: =>
+      view.remove() for own key, view of @childViews
+      @childViews = []
+
+
+    renderChildren: ->
+      view.delegateEvents() for own id, view of @childViews
+      $(view.el for own id, view of @childViews)
 
 
     render: ->
       data = {}
+      @scoreBoardView.render()
       @$el.html @template(data)
-      @$el.find(".guesses").html(@renderChildren())
+      @$el.find(".guesses").html @renderChildren()

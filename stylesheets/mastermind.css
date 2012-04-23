@@ -9,10 +9,19 @@ body { background-color: #555 }
 .correct { background-color: #da4f49; }
 .correct-type { background-color: whiteSmoke; }
 
-.code-peg:hover { border: 2px solid #ccc }
+.code-peg { width: 30px; border: 1px solid transparent; }
+.code-peg:hover { border: 1px solid #ccc }
+
 .code-peg-selection { float: left; min-width: 30px; min-height: 30px }
 .code-peg-selection button { min-width: 30px; min-height: 28px }
+.code-peg-selection .dropdown-menu { padding: 0; width: 30px; min-width: 30px;
+                                     margin-top: 0 }
 
-.submit-guess { margin-left: 12px }
+.submit-guess { margin-left: 1px }
 .guess { margin-top: 5px; }
 .guesses { width: 180px; margin: 0 auto; }
+
+.board { text-align: center; }
+.score-board { background-color: #333; text-align: left; height: 30px;
+               padding-left: 20px; padding-top: 10px; }
+.play-again { margin-top: 25px; display: none; }

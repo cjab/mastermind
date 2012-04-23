@@ -33,7 +33,9 @@ define [
       @render()
 
 
-    renderChildren: -> $(view.el for own id, view of @childViews)
+    renderChildren: ->
+      view.delegateEvents() for own id, view of @childViews
+      $(view.el for own id, view of @childViews)
 
 
     onScoreChange: (guess) =>

@@ -16,6 +16,8 @@ define [
       maxGuesses: 12
       codeLength:  4
       allowDuplicates: yes
+      wins:   0
+      losses: 0
 
 
     initialize: ->
@@ -28,9 +30,17 @@ define [
     onMakeGuess: (guess) =>
       @scoreGuess(guess)
       if guess.get("score").get("correct") == @get("codeLength")
-        console.log "You've won!"
+        @set "wins", @get("wins") + 1
+      else if @get("guesses").length >= @get("maxGuesses")
+        @set "losses", @get("losses") + 1
       else
         @get("guesses").add new Guess
+
+
+    newCode: ->
+      @set "answer", @randomCode()
+      @get("guesses").reset()
+      @get("guesses").add new Guess
 
 
     scoreGuess: (guess) =>
