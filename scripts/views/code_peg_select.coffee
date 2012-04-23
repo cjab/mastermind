@@ -43,7 +43,6 @@ define [
 
     renderChildren: ->
       # Events have to be re-attached to the child views
-      # TODO: Would it be better to re-render children here somehow?
       view.delegateEvents() for own id, view of @childViews
       $(view.el for own id, view of @childViews)
 

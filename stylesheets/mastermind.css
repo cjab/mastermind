@@ -1,5 +1,7 @@
 body { background-color: #555 }
 
+.header { background-color: black; }
+
 .score { width: 30px; height: 28px; background-color: gray;
          float: left; margin-left: 15px; border-radius: 4px; }
 .score-row { width: 30px; height: 14px; }
