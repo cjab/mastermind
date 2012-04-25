@@ -12,7 +12,7 @@ require.config({
   }
 });
 
-require([
+define([
   "cs!app",
   "order!lib/jquery/jquery-min",
   "order!lib/underscore/underscore-min",
